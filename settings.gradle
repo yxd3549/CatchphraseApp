@@ -1,0 +1,2 @@
+rootProject.name='Catchphrase'
+include ':app'
