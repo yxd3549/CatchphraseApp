@@ -9,7 +9,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/howToPlayButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -18,10 +18,10 @@
         android:text="How to Play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/newCategoryButton" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/newCategoryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -31,10 +31,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/selectCategoryButton" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/selectCategoryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
