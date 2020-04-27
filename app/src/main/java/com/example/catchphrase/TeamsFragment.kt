@@ -28,7 +28,7 @@ class TeamsFragment : Fragment() {
         super.onAttach(context)
         listener = context as? TeamsFragmentListener
         if (listener == null) {
-            throw ClassCastException("$context must implement OnArticleSelectedListener")
+            throw ClassCastException("$context must implement TeamsFragmentListener")
         }
     }
 

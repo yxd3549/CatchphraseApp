@@ -31,7 +31,7 @@ class CategoryFragment : Fragment() {
         super.onAttach(context)
         listener = context as? CategoryFragmentListener
         if (listener == null) {
-            throw ClassCastException("$context must implement OnArticleSelectedListener")
+            throw ClassCastException("$context must implement CategoryFragmentListener")
         }
     }
 

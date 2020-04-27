@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
         super.onAttach(context)
         listener = context as? HomeFragmentListener
         if (listener == null) {
-            throw ClassCastException("$context must implement OnArticleSelectedListener")
+            throw ClassCastException("$context must implement HomeFragmentListener")
         }
 
     }

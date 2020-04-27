@@ -8,11 +8,16 @@ import com.example.catchphrase.dummy.DummyContent
 class MainActivity : AppCompatActivity(),
     HomeFragment.HomeFragmentListener,
     CategoryFragment.CategoryFragmentListener,
-    TeamsFragment.TeamsFragmentListener{
+    TeamsFragment.TeamsFragmentListener,
+    GameFragment.GameFragmentListener,
+    EndFragment.EndFragmentListener{
 
     var category = ""
     var team1 = ""
     var team2 = ""
+    var winningTeam = ""
+    var team1Score = 0
+    var team2Score = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +78,29 @@ class MainActivity : AppCompatActivity(),
         supportFragmentManager.beginTransaction()
             .remove(supportFragmentManager.findFragmentByTag("teams")!!)
             .add(R.id.content, gameFragment, "game")
+            .commit()
+    }
+
+    override fun endGame(winningTeam: String, team1Score: Int, team2Score: Int) {
+        val endFragment = EndFragment()
+        val args = Bundle()
+        args.putString(EndFragment.WINNING_TEAM, winningTeam)
+        args.putString(EndFragment.TEAM1, this.team1)
+        args.putString(EndFragment.TEAM2, this.team2)
+        args.putInt(EndFragment.TEAM1_SCORE, team1Score)
+        args.putInt(EndFragment.TEAM2_SCORE, team2Score)
+        endFragment.arguments = args
+        supportFragmentManager.beginTransaction()
+            .remove(supportFragmentManager.findFragmentByTag("game")!!)
+            .add(R.id.content, endFragment, "end")
+            .commit()
+
+    }
+
+    override fun playAgain() {
+        supportFragmentManager.beginTransaction()
+            .remove(supportFragmentManager.findFragmentByTag("end")!!)
+            .add(R.id.content, HomeFragment(), "home")
             .commit()
     }
 
