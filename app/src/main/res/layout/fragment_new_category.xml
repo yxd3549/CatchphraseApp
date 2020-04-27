@@ -27,6 +27,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="Enter comma-separated words"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

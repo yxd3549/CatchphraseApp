@@ -1,5 +1,6 @@
 package com.example.catchphrase
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,12 +16,22 @@ import kotlinx.android.synthetic.main.fragment_category.*
  */
 class CategoryFragment : Fragment() {
 
+    var listener: CategoryFragmentListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_category, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? CategoryFragmentListener
+        if (listener == null) {
+            throw ClassCastException("$context must implement OnArticleSelectedListener")
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,9 +46,13 @@ class CategoryFragment : Fragment() {
             spinner.adapter = adapter
         }
         select_category_button.setOnClickListener {
-            Toast.makeText(activity!!, spinner.selectedItem.toString(), Toast.LENGTH_LONG).show()
+            listener?.onNextClicked(spinner.selectedItem.toString())
         }
 
+    }
+
+    interface CategoryFragmentListener {
+        fun onNextClicked(category: String)
     }
 
 }
