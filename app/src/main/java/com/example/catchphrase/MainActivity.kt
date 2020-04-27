@@ -2,6 +2,7 @@ package com.example.catchphrase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.catchphrase.dummy.DummyContent
 
 class MainActivity : AppCompatActivity(),
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity(),
             .remove(supportFragmentManager.findFragmentByTag("home")!!)
             .add(R.id.content, CategoryFragment(), "categories")
             .commit()
-        supportActionBar?.title = "Select Category"
     }
 
     override fun onNewCategoryClicked() {
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(),
             .remove(supportFragmentManager.findFragmentByTag("home")!!)
             .add(R.id.content, NewCategoryFragment(), "new")
             .commit()
-        supportActionBar?.title = "New Category"
+
     }
 
     override fun onHowToPlayClicked() {
@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity(),
             .remove(supportFragmentManager.findFragmentByTag("home")!!)
             .add(R.id.content, HowToPlayFragment(), "howto")
             .commit()
-        supportActionBar?.title = "How to Play"
     }
 
     override fun onNextClicked(selectedCategory: String) {
@@ -60,17 +59,21 @@ class MainActivity : AppCompatActivity(),
             .remove(supportFragmentManager.findFragmentByTag("categories")!!)
             .add(R.id.content, TeamsFragment(), "teams")
             .commit()
-        supportActionBar?.title = "Choose Team Names"
     }
 
     override fun selectTeamsClicked(team1: String, team2: String) {
         this.team1 = team1
         this.team2 = team2
+        val gameFragment = GameFragment()
+        val args = Bundle()
+        args.putString(GameFragment.GAME_CATEGORY, this.category)
+        args.putString(GameFragment.TEAM1, this.team1)
+        args.putString(GameFragment.TEAM2, this.team2)
+        gameFragment.arguments = args
         supportFragmentManager.beginTransaction()
             .remove(supportFragmentManager.findFragmentByTag("teams")!!)
-            .add(R.id.content, GameFragment(), "game")
+            .add(R.id.content, gameFragment, "game")
             .commit()
-        supportActionBar?.title = "Catchphrase - $category"
     }
 
 }

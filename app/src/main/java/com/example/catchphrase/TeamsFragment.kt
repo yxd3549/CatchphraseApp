@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.fragment_teams.*
 
 /**
@@ -33,6 +34,7 @@ class TeamsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title = "Choose Team Names"
         select_teams_button.setOnClickListener {
             listener?.selectTeamsClicked(team1_name.text.toString(), team2_name.text.toString())
         }
