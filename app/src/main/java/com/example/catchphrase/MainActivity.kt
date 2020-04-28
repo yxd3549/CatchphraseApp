@@ -2,8 +2,7 @@ package com.example.catchphrase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import com.example.catchphrase.dummy.DummyContent
+
 
 class MainActivity : AppCompatActivity(),
     HomeFragment.HomeFragmentListener,
@@ -15,9 +14,7 @@ class MainActivity : AppCompatActivity(),
     var category = ""
     var team1 = ""
     var team2 = ""
-    var winningTeam = ""
-    var team1Score = 0
-    var team2Score = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
