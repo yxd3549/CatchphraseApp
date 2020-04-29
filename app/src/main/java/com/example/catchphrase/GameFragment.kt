@@ -77,6 +77,14 @@ class GameFragment : Fragment() {
             next()
         }
 
+        stop_button.setOnClickListener {
+            counter?.cancel()
+            timer?.text = "STOPPED"
+            paused = true
+            team1_button.isEnabled = true
+            team2_button.isEnabled = true
+        }
+
         team1_button.setOnClickListener {
             team1Score++
             if(team1Score == 7){
@@ -111,6 +119,8 @@ class GameFragment : Fragment() {
                 tickingPlayer?.pause()
                 explosionPlayer?.seekTo(0)
                 explosionPlayer?.start()
+                team1_button.isEnabled = true
+                team2_button.isEnabled = true
             }
         }
         (counter as CountDownTimer).start()
@@ -130,6 +140,11 @@ class GameFragment : Fragment() {
             tickingPlayer?.seekTo(0)
             tickingPlayer?.start()
             paused = false
+            team1_button.isEnabled = false
+            team2_button.isEnabled = false
+
+            currIndex++
+            word.text = words[currIndex%words.size]
         } else {
             currIndex++
             word.text = words[currIndex%words.size]

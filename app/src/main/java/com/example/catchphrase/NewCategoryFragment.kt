@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import com.example.catchphrase.entities.Phrase
 import kotlinx.android.synthetic.main.fragment_new_category.*
@@ -35,6 +36,10 @@ class NewCategoryFragment : Fragment() {
             val category = categoryNameInput.text.toString()
             val words = phrasesInput.text.toString().split(", ")
             addCategory(category, words)
+        }
+        phrasesInput.doOnTextChanged { text, start, count, after ->
+            val words = phrasesInput.text.toString().split(", ")
+            word_count.text = "Word count: " + words.size.toString()
         }
     }
 

@@ -11,6 +11,7 @@
         android:layout_width="46dp"
         android:layout_height="42dp"
         android:layout_marginBottom="16dp"
+        android:enabled="false"
         android:text="+"
         app:layout_constraintBottom_toTopOf="@+id/team2_name"
         app:layout_constraintEnd_toEndOf="@+id/team2_name"
@@ -46,7 +47,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/word" />
+        app:layout_constraintTop_toBottomOf="@+id/stop_button" />
 
     <TextView
         android:id="@+id/team1_name"
@@ -97,8 +98,19 @@
         android:layout_width="46dp"
         android:layout_height="42dp"
         android:layout_marginBottom="16dp"
+        android:enabled="false"
         android:text="+"
         app:layout_constraintBottom_toTopOf="@+id/team1_name"
         app:layout_constraintEnd_toEndOf="@+id/team1_name"
         app:layout_constraintStart_toStartOf="@+id/team1_name" />
+
+    <Button
+        android:id="@+id/stop_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Stop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/word" />
 </androidx.constraintlayout.widget.ConstraintLayout>

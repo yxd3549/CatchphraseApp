@@ -21,7 +21,8 @@ abstract class PhraseDatabase : RoomDatabase() {
             if (INSTANCE == null){
                 INSTANCE = Room.databaseBuilder(context.applicationContext,
                     PhraseDatabase::class.java,
-                    "phrase.db").fallbackToDestructiveMigration()
+                    "phrase.db")
+                    .createFromAsset("base.db")
                     .build()
             }
             return INSTANCE!!
