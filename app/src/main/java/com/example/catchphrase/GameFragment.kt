@@ -1,6 +1,7 @@
 package com.example.catchphrase
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_game.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 /**
  * A simple [Fragment] subclass.
@@ -21,11 +24,7 @@ class GameFragment : Fragment() {
         const val TEAM2 = "team2"
     }
 
-    var words = arrayOf("Steven", "Garnet", "Ruby", "Sapphire", "Amethyst",
-        "Pearl", "Greg", "Connie", "Lars", "Sadie", "Rose", "Lapis", "Peridot",
-        "Jasper", "Bismuth", "Lion", "Spinel", "Opal", "Sugilite", "Alexandrite",
-        "Stevonnie", "Malachite", "Rainbow Quarts", "Sardonyx", "Smoky Quartz",
-        "Sunstone", "Obsidian", "Steg").toMutableList()
+    var words = mutableListOf<String>()
     var currIndex = 0
     var category = ""
     var team1 = ""
@@ -35,6 +34,8 @@ class GameFragment : Fragment() {
     var counter: CountDownTimer? = null
     var listener: GameFragmentListener? = null
     var paused = false
+    var tickingPlayer: MediaPlayer? = null
+    var explosionPlayer: MediaPlayer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,9 +59,14 @@ class GameFragment : Fragment() {
         this.team2 = arguments!!.getString(TEAM2)!!
         this.team1Score = 0
         this.team2Score = 0
-        this.words.shuffle()
-
-        word.text = words[currIndex]
+        doAsync {
+            words = PhraseDatabase.getInstance(activity!!).phraseDao()
+                .getPhrasesInCategory(category).toMutableList()
+            uiThread {
+                words.shuffle()
+                word.text = words[currIndex]
+            }
+        }
 
         team1_name.text = team1
         team2_name.text = team2
@@ -91,6 +97,8 @@ class GameFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Catchphrase"
+        tickingPlayer = MediaPlayer.create(context, R.raw.ticking)
+        explosionPlayer = MediaPlayer.create(context, R.raw.explosion)
         counter = object:CountDownTimer(5000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val minutes: Long = millisUntilFinished / 1000 / 60
@@ -100,14 +108,27 @@ class GameFragment : Fragment() {
             override fun onFinish() {
                 paused = true
                 timer?.text = "TIME!"
+                tickingPlayer?.pause()
+                explosionPlayer?.seekTo(0)
+                explosionPlayer?.start()
             }
         }
         (counter as CountDownTimer).start()
+        tickingPlayer?.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        tickingPlayer?.stop()
+        explosionPlayer?.stop()
     }
 
     private fun next(){
         if (paused){
             counter?.start()
+            explosionPlayer?.pause()
+            tickingPlayer?.seekTo(0)
+            tickingPlayer?.start()
             paused = false
         } else {
             currIndex++

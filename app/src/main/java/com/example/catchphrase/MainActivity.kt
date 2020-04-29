@@ -2,6 +2,8 @@ package com.example.catchphrase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 
 
 class MainActivity : AppCompatActivity(),
@@ -54,8 +56,8 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
-    override fun onNextClicked(selectedCategory: String) {
-        category = selectedCategory
+    override fun onNextClicked(categoryName: String) {
+        category = categoryName
         supportFragmentManager.beginTransaction()
             .addToBackStack("categories")
             .remove(supportFragmentManager.findFragmentByTag("categories")!!)
@@ -101,4 +103,10 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
+    override fun onBackPressed() {
+        val f: Fragment? = supportFragmentManager.findFragmentById(R.id.content)
+        if (f !is GameFragment) {
+            super.onBackPressed()
+        }
+    }
 }

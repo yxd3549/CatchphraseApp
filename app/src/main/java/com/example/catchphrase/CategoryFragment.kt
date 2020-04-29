@@ -2,15 +2,17 @@ package com.example.catchphrase
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_category.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.doAsyncResult
+import org.jetbrains.anko.uiThread
 
 /**
  * A simple [Fragment] subclass.
@@ -39,22 +41,23 @@ class CategoryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Select Category"
         val spinner: Spinner = category_input
-        ArrayAdapter.createFromResource(
-            activity!!,
-            R.array.category_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
+        var categories: List<String>
+        doAsync{
+            categories = PhraseDatabase.getInstance(activity!!).phraseDao().getAllCategories()
+            uiThread {
+                val spinnerArrayAdapter: ArrayAdapter<String> =
+                    ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, categories)
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = spinnerArrayAdapter
+                select_category_button.setOnClickListener {
+                    listener?.onNextClicked(spinner.selectedItem.toString())
+                }
+            }
         }
-        select_category_button.setOnClickListener {
-            listener?.onNextClicked(spinner.selectedItem.toString())
-        }
-
     }
 
     interface CategoryFragmentListener {
-        fun onNextClicked(category: String)
+        fun onNextClicked(categoryName: String)
     }
 
 }

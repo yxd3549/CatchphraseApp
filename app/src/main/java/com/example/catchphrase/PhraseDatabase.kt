@@ -9,7 +9,7 @@ import com.example.catchphrase.entities.Phrase
 @Database(entities = arrayOf(Phrase::class), version = 3, exportSchema = true)
 abstract class PhraseDatabase : RoomDatabase() {
 
-    abstract fun PhraseDao(): PhraseDao
+    abstract fun phraseDao(): PhraseDao
 
     companion object {
         // The only instance singleton

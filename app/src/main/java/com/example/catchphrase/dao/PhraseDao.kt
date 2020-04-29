@@ -6,10 +6,13 @@ import com.example.catchphrase.entities.Phrase
 
 @Dao interface PhraseDao {
     @Query("Select phrase from phrase")
-    fun gerAllPhrases(): List<Phrase>
+    fun getAllPhrases(): List<String>
 
-    @Query("Select phrase from phrase where category_name = :category")
-    fun getPhrasesInCategory(category: String): List<Phrase>
+    @Query("Select phrase from phrase where category = :category")
+    fun getPhrasesInCategory(category: String): List<String>
+
+    @Query("Select distinct category from phrase")
+    fun getAllCategories(): List<String>
 
     @Insert(onConflict = REPLACE)
     fun insertPhrase(phrase: Phrase)

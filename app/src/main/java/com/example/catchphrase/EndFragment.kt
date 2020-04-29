@@ -1,6 +1,7 @@
 package com.example.catchphrase
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.sax.EndElementListener
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ class EndFragment : Fragment() {
     }
 
     var listener: EndFragmentListener? = null
+    var clappingPlayer: MediaPlayer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +53,13 @@ class EndFragment : Fragment() {
         val winningTeam = arguments!!.getString(WINNING_TEAM)
         winning_message.text = "$winningTeam Wins!"
         play_again_button.setOnClickListener { listener?.playAgain() }
+        clappingPlayer = MediaPlayer.create(context, R.raw.applause)
+        clappingPlayer?.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        clappingPlayer?.stop()
     }
 
     interface EndFragmentListener {
