@@ -40,17 +40,17 @@ class CategoryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Select Category"
-        val spinner: Spinner = category_input
         var categories: List<String>
         doAsync{
             categories = PhraseDatabase.getInstance(activity!!).phraseDao().getAllCategories()
             uiThread {
                 val spinnerArrayAdapter: ArrayAdapter<String> =
-                    ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, categories)
+                    ArrayAdapter<String>(activity!!, R.layout.dropdown_menu_popup_item, categories)
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = spinnerArrayAdapter
+                filled_exposed_dropdown.setAdapter(spinnerArrayAdapter)
+                filled_exposed_dropdown.setText("Android", false)
                 select_category_button.setOnClickListener {
-                    listener?.onNextClicked(spinner.selectedItem.toString())
+                    listener?.onNextClicked(filled_exposed_dropdown.text.toString())
                 }
             }
         }

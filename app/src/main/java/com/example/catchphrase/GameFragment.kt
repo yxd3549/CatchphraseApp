@@ -83,6 +83,7 @@ class GameFragment : Fragment() {
             paused = true
             team1_button.isEnabled = true
             team2_button.isEnabled = true
+            tickingPlayer?.stop()
         }
 
         team1_button.setOnClickListener {
@@ -107,7 +108,7 @@ class GameFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Catchphrase"
         tickingPlayer = MediaPlayer.create(context, R.raw.ticking)
         explosionPlayer = MediaPlayer.create(context, R.raw.explosion)
-        counter = object:CountDownTimer(5000, 1000) {
+        counter = object:CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val minutes: Long = millisUntilFinished / 1000 / 60
                 val seconds = (millisUntilFinished / 1000 % 60)
@@ -150,6 +151,7 @@ class GameFragment : Fragment() {
             word.text = words[currIndex%words.size]
         }
     }
+
 
     interface GameFragmentListener {
         fun endGame(winningTeam: String, team1Score: Int, team2Score: Int)

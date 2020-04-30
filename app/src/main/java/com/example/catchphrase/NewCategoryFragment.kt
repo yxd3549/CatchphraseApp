@@ -1,10 +1,12 @@
 package com.example.catchphrase
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -33,12 +35,21 @@ class NewCategoryFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "New Category"
 
         create_button.setOnClickListener {
-            val category = categoryNameInput.text.toString()
-            val words = phrasesInput.text.toString().split(", ")
-            addCategory(category, words)
+            hideKeyboard()
+            val category = category_name_edit_text.text.toString()
+            val words = phrases_input_text.text.toString().split(", ")
+            if (words.size < 2){
+                Toast.makeText(activity!!,
+                    "Please add more words. Let's make it fun!", Toast.LENGTH_LONG).show()
+            } else if(category ==""){
+                Toast.makeText(activity!!,
+                    "Make sure you name your category. Make it unique, like you <3", Toast.LENGTH_LONG).show()
+            } else {
+                addCategory(category, words)
+            }
         }
-        phrasesInput.doOnTextChanged { text, start, count, after ->
-            val words = phrasesInput.text.toString().split(", ")
+        phrases_input_text.doOnTextChanged { text, start, count, after ->
+            val words = phrases_input_text.text.toString().split(", ")
             word_count.text = "Word count: " + words.size.toString()
         }
     }
@@ -56,6 +67,12 @@ class NewCategoryFragment : Fragment() {
             uiThread { Toast.makeText(activity!!,
                 "Your new category has been created. Go play!", Toast.LENGTH_LONG).show()  }
         }
+    }
+
+    fun hideKeyboard(){
+        val inputManager: InputMethodManager =
+            context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(activity!!.currentFocus?.windowToken, 0)
     }
 
 }

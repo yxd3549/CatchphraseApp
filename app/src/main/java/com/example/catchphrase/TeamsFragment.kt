@@ -35,8 +35,11 @@ class TeamsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Choose Team Names"
+        team1_name_input.setText("Team 1")
+        team2_name_input.setText("Team 2")
+
         select_teams_button.setOnClickListener {
-            listener?.selectTeamsClicked(team1_name.text.toString(), team2_name.text.toString())
+            listener?.selectTeamsClicked(team1_name_input.text.toString(), team2_name_input.text.toString())
         }
     }
 
