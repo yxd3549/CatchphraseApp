@@ -1,5 +1,6 @@
 package com.example.catchphrase
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +13,8 @@ class MainActivity : AppCompatActivity(),
     CategoryFragment.CategoryFragmentListener,
     TeamsFragment.TeamsFragmentListener,
     GameFragment.GameFragmentListener,
-    EndFragment.EndFragmentListener{
+    EndFragment.EndFragmentListener,
+    NewCategoryFragment.NewCategoryFragmentListener{
 
     private var category = ""
     private var team1 = ""
@@ -104,11 +106,15 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
+    override fun categoryCreated() {
+        supportFragmentManager.popBackStack()
+    }
+
     override fun onBackPressed() {
         val f: Fragment? = supportFragmentManager.findFragmentById(R.id.content)
-        if(f is HomeFragment){
+        if (f is HomeFragment){
             finish()
-        } else if (f !is GameFragment) {
+        } else if (f !is GameFragment && f !is EndFragment) {
             super.onBackPressed()
         }
     }

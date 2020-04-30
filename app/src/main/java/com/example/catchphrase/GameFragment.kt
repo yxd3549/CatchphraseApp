@@ -22,7 +22,7 @@ class GameFragment : Fragment() {
         const val GAME_CATEGORY = "game_category"
         const val TEAM1 = "team1"
         const val TEAM2 = "team2"
-        const val TIME_PER_ROUND: Long = 60000
+        const val TIME_PER_ROUND: Long = 40000
         const val ONE_SECOND: Long = 1000
         const val SECONDS_IN_MINUTE: Long = 60
     }
@@ -134,7 +134,7 @@ class GameFragment : Fragment() {
         paused = true
         team1_button.isEnabled = true
         team2_button.isEnabled = true
-        tickingPlayer?.stop()
+        tickingPlayer?.pause()
     }
 
     private fun team1ButtonHandler(){

@@ -1,6 +1,7 @@
 package com.example.catchphrase
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,11 +23,21 @@ import org.jetbrains.anko.uiThread
  */
 class NewCategoryFragment : Fragment() {
 
+    var listener : NewCategoryFragmentListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_new_category, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? NewCategoryFragmentListener
+        if (listener == null) {
+            throw ClassCastException("$context must implement NewCategoryFragmentListener")
+        }
     }
 
     /**
@@ -77,7 +88,8 @@ class NewCategoryFragment : Fragment() {
                 PhraseDatabase.getInstance(activity!!).phraseDao().insertPhrase(it)
             }
             uiThread { Toast.makeText(activity!!,
-                "Your new category has been created. Go play!", Toast.LENGTH_LONG).show()  }
+                "Your new category has been created. Go play!", Toast.LENGTH_LONG).show()
+                listener?.categoryCreated()}
         }
     }
 
@@ -88,6 +100,10 @@ class NewCategoryFragment : Fragment() {
         val inputManager: InputMethodManager =
             context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(activity!!.currentFocus?.windowToken, 0)
+    }
+
+    interface NewCategoryFragmentListener {
+        fun categoryCreated();
     }
 
 }
