@@ -4,6 +4,10 @@ import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import com.example.catchphrase.entities.Phrase
 
+
+/**
+ * The interface that defines methods to interact with the database
+ */
 @Dao interface PhraseDao {
     @Query("Select phrase from phrase")
     fun getAllPhrases(): List<String>

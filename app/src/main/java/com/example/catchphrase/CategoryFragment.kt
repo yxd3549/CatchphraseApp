@@ -6,16 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.doAsyncResult
 import org.jetbrains.anko.uiThread
 
 /**
- * A simple [Fragment] subclass.
+ * The CategoryFragment fetches and displays all the categories for the user to choose
  */
 class CategoryFragment : Fragment() {
 
@@ -25,7 +23,6 @@ class CategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
@@ -40,6 +37,14 @@ class CategoryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Select Category"
+        fetchCategories()
+    }
+
+    /**
+     * Fetch a list of categories from the database.
+     * The default category is Android themed!
+     */
+    private fun fetchCategories() {
         var categories: List<String>
         doAsync{
             categories = PhraseDatabase.getInstance(activity!!).phraseDao().getAllCategories()

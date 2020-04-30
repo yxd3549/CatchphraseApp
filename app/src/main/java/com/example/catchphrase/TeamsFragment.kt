@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.fragment_teams.*
 
 /**
- * A simple [Fragment] subclass.
+ * The TeamsFragment Allows users to select their own team names if they wish
  */
 class TeamsFragment : Fragment() {
 
@@ -20,7 +20,6 @@ class TeamsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_teams, container, false)
     }
 

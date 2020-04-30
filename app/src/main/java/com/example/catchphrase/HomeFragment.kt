@@ -10,18 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
- * A simple [Fragment] subclass.
+ * The HomeFragment displays the home screen with options for the user
  */
 class HomeFragment : Fragment() {
 
     var listener: HomeFragmentListener? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -37,22 +35,11 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Catchphrase"
-        selectCategoryButton.setOnClickListener { onSelectCategory() }
-        newCategoryButton.setOnClickListener { onNewCategory() }
-        howToPlayButton.setOnClickListener { onHowToPlay() }
+        selectCategoryButton.setOnClickListener { listener?.onSelectCategoryClicked() }
+        newCategoryButton.setOnClickListener { listener?.onNewCategoryClicked() }
+        howToPlayButton.setOnClickListener { listener?.onHowToPlayClicked() }
     }
 
-    fun onSelectCategory(){
-        listener?.onSelectCategoryClicked()
-    }
-
-    fun onNewCategory(){
-        listener?.onNewCategoryClicked()
-    }
-
-    fun onHowToPlay(){
-        listener?.onHowToPlayClicked()
-    }
     interface HomeFragmentListener {
         fun onSelectCategoryClicked()
         fun onNewCategoryClicked()

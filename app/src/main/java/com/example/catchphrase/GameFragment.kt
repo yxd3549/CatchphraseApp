@@ -14,7 +14,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 /**
- * A simple [Fragment] subclass.
+ * The GameFragment implements all the game logic
  */
 class GameFragment : Fragment() {
 
@@ -22,7 +22,11 @@ class GameFragment : Fragment() {
         const val GAME_CATEGORY = "game_category"
         const val TEAM1 = "team1"
         const val TEAM2 = "team2"
+        const val TIME_PER_ROUND: Long = 60000
+        const val ONE_SECOND: Long = 1000
+        const val SECONDS_IN_MINUTE: Long = 60
     }
+
 
     var words = mutableListOf<String>()
     var currIndex = 0
@@ -41,7 +45,6 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game, container, false)
     }
 
@@ -53,65 +56,49 @@ class GameFragment : Fragment() {
         }
     }
 
+    /**
+     * Initialize all TextViews, fetch words, and set click listeners
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         this.category = arguments!!.getString(GAME_CATEGORY)!!
         this.team1 = arguments!!.getString(TEAM1)!!
         this.team2 = arguments!!.getString(TEAM2)!!
         this.team1Score = 0
         this.team2Score = 0
-        doAsync {
-            words = PhraseDatabase.getInstance(activity!!).phraseDao()
-                .getPhrasesInCategory(category).toMutableList()
-            uiThread {
-                words.shuffle()
-                word.text = words[currIndex]
-            }
-        }
+
+        fetchWords()
 
         team1_name.text = team1
         team2_name.text = team2
         team1_score.text = team1Score.toString()
         team2_score.text = team2Score.toString()
 
-        next_button.setOnClickListener {
-            next()
-        }
-
-        stop_button.setOnClickListener {
-            counter?.cancel()
-            timer?.text = "STOPPED"
-            paused = true
-            team1_button.isEnabled = true
-            team2_button.isEnabled = true
-            tickingPlayer?.stop()
-        }
-
-        team1_button.setOnClickListener {
-            team1Score++
-            if(team1Score == 7){
-                listener?.endGame(team1, team1Score, team2Score)
-            }
-            team1_score.text = team1Score.toString()
-        }
-
-        team2_button.setOnClickListener {
-            team2Score++
-            if(team2Score == 7){
-                listener?.endGame(team2, team1Score, team2Score)
-            }
-            team2_score.text = team2Score.toString()
-        }
+        next_button.setOnClickListener { next() }
+        stop_button.setOnClickListener { stopButtonHandler() }
+        team1_button.setOnClickListener { team1ButtonHandler() }
+        team2_button.setOnClickListener { team2ButtonHandler() }
     }
 
+    /**
+     * Starts the ticking sound and sets up the explosion sound
+     */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Catchphrase"
+        startCounter()
         tickingPlayer = MediaPlayer.create(context, R.raw.ticking)
         explosionPlayer = MediaPlayer.create(context, R.raw.explosion)
-        counter = object:CountDownTimer(60000, 1000) {
+        tickingPlayer?.start()
+    }
+
+    /**
+     * Initializes and starts the counter
+     */
+    private fun startCounter(){
+        counter = object:CountDownTimer(TIME_PER_ROUND, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
-                val minutes: Long = millisUntilFinished / 1000 / 60
-                val seconds = (millisUntilFinished / 1000 % 60)
+                val minutes: Long = millisUntilFinished / ONE_SECOND / SECONDS_IN_MINUTE
+                val seconds = (millisUntilFinished / ONE_SECOND % SECONDS_IN_MINUTE)
                 timer?.text = "$minutes:$seconds"
             }
             override fun onFinish() {
@@ -125,7 +112,45 @@ class GameFragment : Fragment() {
             }
         }
         (counter as CountDownTimer).start()
-        tickingPlayer?.start()
+    }
+
+    /**
+     * Retrieves the words to play with from the database
+     */
+    private fun fetchWords(){
+        doAsync {
+            words = PhraseDatabase.getInstance(activity!!).phraseDao()
+                .getPhrasesInCategory(category).toMutableList()
+            uiThread {
+                words.shuffle()
+                word.text = words[currIndex]
+            }
+        }
+    }
+
+    private fun stopButtonHandler(){
+        counter?.cancel()
+        timer?.text = "STOPPED"
+        paused = true
+        team1_button.isEnabled = true
+        team2_button.isEnabled = true
+        tickingPlayer?.stop()
+    }
+
+    private fun team1ButtonHandler(){
+        team1Score++
+        if(team1Score == 7){
+            listener?.endGame(team1, team1Score, team2Score)
+        }
+        team1_score.text = team1Score.toString()
+    }
+
+    private fun team2ButtonHandler(){
+        team2Score++
+        if(team2Score == 7){
+            listener?.endGame(team2, team1Score, team2Score)
+        }
+        team2_score.text = team2Score.toString()
     }
 
     override fun onPause() {

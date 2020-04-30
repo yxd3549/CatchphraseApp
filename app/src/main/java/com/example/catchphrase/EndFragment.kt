@@ -3,7 +3,6 @@ package com.example.catchphrase
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.sax.EndElementListener
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_end.*
 
 /**
- * A simple [Fragment] subclass.
+ * The EndFragment displays the winning team and the teams' scores
  */
 class EndFragment : Fragment() {
 
@@ -30,7 +29,6 @@ class EndFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_end, container, false)
     }
 
@@ -42,6 +40,10 @@ class EndFragment : Fragment() {
         }
     }
 
+    /**
+     * Populates all the TextViews with the appropriate information
+     * and starts a MediaPlayer to clap for the user
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         team1_name.text = arguments!!.getString(TEAM1)!!
@@ -57,6 +59,9 @@ class EndFragment : Fragment() {
         clappingPlayer?.start()
     }
 
+    /**
+     * When leaving the fragment, stop clapping.
+     */
     override fun onPause() {
         super.onPause()
         clappingPlayer?.stop()

@@ -2,10 +2,11 @@ package com.example.catchphrase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 
-
+/**
+ * The MainActivity simply manages messages from and to the Fragments
+ */
 class MainActivity : AppCompatActivity(),
     HomeFragment.HomeFragmentListener,
     CategoryFragment.CategoryFragmentListener,
@@ -13,9 +14,9 @@ class MainActivity : AppCompatActivity(),
     GameFragment.GameFragmentListener,
     EndFragment.EndFragmentListener{
 
-    var category = ""
-    var team1 = ""
-    var team2 = ""
+    private var category = ""
+    private var team1 = ""
+    private var team2 = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,7 +106,9 @@ class MainActivity : AppCompatActivity(),
 
     override fun onBackPressed() {
         val f: Fragment? = supportFragmentManager.findFragmentById(R.id.content)
-        if (f !is GameFragment) {
+        if(f is HomeFragment){
+            finish()
+        } else if (f !is GameFragment) {
             super.onBackPressed()
         }
     }

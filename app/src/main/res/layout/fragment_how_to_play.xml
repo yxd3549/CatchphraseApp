@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Grab It! Guess It! Pass It! "
+        android:text="@string/grab_it_guess_it_pass_it"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginBottom="10dp"
@@ -23,13 +23,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Be the first team to reach 7 points. To gain points, make sure someone from your team isn’t caught holding the Catch Phrase game unit when the timer runs out."
+        android:text="@string/short_how_to_play"
         android:textSize="18sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="To Start a New Game"
+        android:text="@string/to_start_a_new_game"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginBottom="10dp"
@@ -38,24 +38,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1. Select a Category. Only words from that category will appear on the screen"
+        android:text="@string/start_1"
         android:textSize="18sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2. Make your teams! It’s best to alternate players in a circle so each player is next to a member of the other team."
+        android:text="@string/start_2"
         android:textSize="18sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="3. Select team names. Come up with something funny and original. Or you can just be Team 1 and Team 2. Nothing wrong with some classics!"
+        android:text="@string/start_3"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Playing a round"
+        android:text="@string/playing_a_round"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginBottom="10dp"
@@ -63,42 +63,42 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Each game consists of several rounds of play. Once you’ve decided on team names, pick a player on the first team to go first. Give the Catch Phrase game unit to that player. Press the “Start Game!” button to start the timer. A word from the chosen category will appear on the screen. You can press the “Next” button to show the new word. Now you need to get your team to guess that word by giving them clues. Here’s how. "
+        android:text="@string/round_explanation"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="•	You can make any physical gesture and give almost any verbal clue to get your team to say the word. But you CANNOT: "
+        android:text="@string/round_rule_1"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="•	Say a word that RHYMES with the word;"
+        android:text="@string/round_rule_2"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="•	Give the FIRST LETTER of the word; "
+        android:text="@string/round_rule_3"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="•	SAY A PART OF THE WORD in the clue (i.e. “shoe” for “shoe horn”). "
+        android:text="@string/round_rule_4"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="If the other team catches you committing any of these no-no’s you must press the “Stop” button to shut the timer off. The other team automatically gets one point for that round. (See “How to Score Points.”) "
+        android:text="@string/round_5"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="As soon as your team has guessed the word, hand the game unit to a member of the other team. Play continues with the new team pressing the Next button to reveal the next word. The round ends when the buzzer sounds and the timer runs out."
+        android:text="@string/round_end"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="How to Score Points "
+        android:text="@string/how_to_score_points"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginBottom="10dp"
@@ -106,12 +106,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="When the bomb goes off, time is up. The team NOT holding the game unit gets 1 point. That team also has one turn to guess the word that the losing team did not get. If they guess correctly, they get 1 BONUS point (scoring a total of 2 points for the round)."
+        android:text="@string/scoring_explanation"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="How to Enter Points "
+        android:text="@string/how_to_enter_points"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginBottom="10dp"
@@ -119,12 +119,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You must wait until the timer has run out, or is stopped, before you can enter points. The losing team (the team left holding the game unit when the round ended) awards 1 point to the winning team by pressing the appropriate “+” button."
+        android:text="@string/enter_points_explanation"
         android:textSize="18sp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Winning"
+        android:text="@string/winning"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginBottom="10dp"
@@ -132,7 +132,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="The first team to reach 7 points wins. The game will play a snappy little tune and display the winning team when the final point is assigned!"
+        android:text="@string/winning_explanation"
         android:textSize="18sp"/>
 
 </LinearLayout>

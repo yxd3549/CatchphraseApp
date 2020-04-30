@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <Button
         android:id="@+id/howToPlayButton"
         android:layout_width="match_parent"
@@ -15,7 +13,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="24dp"
-        android:text="How to Play"
+        android:text="@string/how_to_play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newCategoryButton" />
@@ -27,7 +25,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="24dp"
-        android:text="New Category"
+        android:text="@string/new_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +38,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="120dp"
         android:layout_marginEnd="24dp"
-        android:text="Select Category"
+        android:text="@string/select_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

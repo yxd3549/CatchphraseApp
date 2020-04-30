@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 
 /**
- * A simple [Fragment] subclass.
+ * The HowToPlayFragment displays the manual for the game
  */
 class HowToPlayFragment : Fragment() {
 
@@ -16,7 +16,6 @@ class HowToPlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_how_to_play, container, false)
     }
 
